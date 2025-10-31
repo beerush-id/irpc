@@ -2,8 +2,6 @@
 
 **Design Specification — Version 1.0**
 
-![IRPC](/diagrams/schema.svg)
-
 ## 1. Scope
 
 This specification defines IRPC as a minimal, isomorphic function contract for remote execution. It standardizes the function semantics, provider interface, and transport message format to enable interoperable implementations across languages and environments. Implementation details, policies, and infrastructure are explicitly out of scope unless stated as normative requirements.

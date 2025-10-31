@@ -21,13 +21,12 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Overview', link: '/overview' },
-      { text: 'Get Started', link: '/getting-started' },
+      { text: 'Get Started', link: '/typescript/getting-started' },
       { text: 'Specification', link: '/specification' },
     ],
 
     sidebar: [
       { text: 'Overview', link: '/overview' },
-      { text: 'Get Started', link: '/getting-started' },
       { text: 'Specification', link: '/specification' },
       {
         text: 'Typescript',

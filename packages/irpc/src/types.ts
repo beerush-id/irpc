@@ -149,8 +149,6 @@ export type IRPCSpec<I extends IRPCInputs, O extends IRPCOutput> = {
 export type IRPCHost<I extends IRPCInputs, O extends IRPCOutput> = IRPCSpec<I, O> & {
   /** The actual handler function that implements the RPC */
   handler: IRPCHandler;
-  /** Set of authorizer functions for this RPC */
-  authorizers: Set<IRPCAuthorizer>;
 };
 
 /**

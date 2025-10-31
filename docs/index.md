@@ -10,16 +10,19 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /getting-started
+      link: /typescript/getting-started
+    - theme: alt
+      text: Overview
+      link: /overview
     - theme: alt
       text: Specification
       link: /specification
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Isomorphic Functions
+    details: Write once, run anywhere. Call functions identically on client and server without thinking about network boundaries.
+  - title: Zero Boilerplate
+    details: Eliminate REST endpoints, GraphQL schemas, and complex serialization logic. Just call functions naturally.
+  - title: Pluggable Transports
+    details: Switch between HTTP, WebSockets, and other transports without changing your function signatures.
 ---
