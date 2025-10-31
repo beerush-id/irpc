@@ -1,0 +1,54 @@
+{
+  "type": "module",
+  "name": "@irpclib/irpc",
+  "version": "0.0.1",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "directories": {
+    "dist": "./dist"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@eslint/css": "catalog:",
+    "@eslint/js": "catalog:",
+    "@eslint/markdown": "catalog:",
+    "esbuild-raw-plugin": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-prettier": "catalog:",
+    "prettier": "catalog:",
+    "publint": "catalog:",
+    "rimraf": "catalog:",
+    "tsdown": "catalog:",
+    "typescript-eslint": "catalog:",
+    "zod": "catalog:lib",
+    "@vitest/coverage-v8": "catalog:",
+    "@vitest/ui": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "typescript": "catalog:lib"
+  },
+  "optionalDependencies": {
+    "zod": "catalog:lib"
+  },
+  "scripts": {
+    "dev": "tsdown --watch",
+    "clean": "rimraf dist",
+    "build": "tsdown && publint",
+    "format": "prettier --write .",
+    "prepublish": "bun run format && bun run clean && tsdown && publint"
+  },
+  "license": "MIT"
+}
