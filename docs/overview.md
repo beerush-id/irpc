@@ -1,59 +1,54 @@
 # Overview
 
-**IRPC** (**Isomorphic Remote Procedure Call**) is a revolutionary approach to cross-boundary communication that eliminates the complexity traditionally associated with network APIs. It allows developers to call remote functions as naturally as local ones, removing the friction between client and server interactions.
+**IRPC** (**Isomorphic Remote Procedure Call**) is a paradigm shift in distributed systems that eliminates the cognitive overhead of network communication. It enables developers to invoke remote functions with the same ergonomics as local function calls, abstracting away the transport layer entirely.
 
-With **IRPC**, you can write code like this:
+With **IRPC**, you write code that feels native:
 
 ```ts
 import { readFile } from '/assets/fs.js';
 
-// Calling a remote function feels exactly like a local one
+// Remote invocation with local function ergonomics
 readFile('file.txt', 'utf8').then(console.log);
 ```
 
-Unlike traditional approaches such as **REST APIs**, **GraphQL**, or **gRPC**, **IRPC** doesn't require you to think about paths, payloads, or serialization. You simply call functions as you would locally, and **IRPC** handles all the networking complexity behind the scenes.
+Unlike conventional approaches such as **REST APIs**, **GraphQL**, or **gRPC**, **IRPC** removes the need to think about endpoints, serialization, or transport protocols. You focus on business logic while IRPC handles the communication complexity transparently.
 
 ::: tip Note
 
-**IRPC** is a pattern that can be implemented in various languages. This overview uses the **TypeScript** implementation as an example. For details on the specification and implementations in other languages, please see the [Specification](/specification).
+**IRPC** is a language-agnostic pattern. This documentation demonstrates the **TypeScript** implementation, but the core concepts apply to any language supporting the [IRPC Specification](/specification).
 
 :::
 
-## The Problem
+## The Problem: Communication Overhead
 
-Modern application development suffers from a fundamental disconnect: the communication layer has become a boundary that impedes productivity rather than enabling it.
+Modern distributed systems suffer from a fundamental abstraction leak: the network boundary becomes a primary concern rather than an implementation detail. This forces developers to constantly context-switch between business logic and communication plumbing.
 
-Traditional solutions force developers to think about:
+Traditional approaches impose cognitive overhead:
 
-- How to structure API endpoints (REST)
-- How to craft complex queries (GraphQL)
-- How to define service contracts (gRPC)
-- How to handle serialization and deserialization
-- How to manage error states across network boundaries
+- **Endpoint Design**: Mapping business operations to HTTP resources (REST)
+- **Query Construction**: Building complex data retrieval queries (GraphQL)
+- **Contract Definition**: Maintaining service definitions and proto files (gRPC)
+- **Serialization Logic**: Manual JSON marshaling/unmarshaling
+- **Error Translation**: Converting transport errors to domain errors
 
-This complexity diverts attention from solving actual business problems. For example, reading a file locally is as simple as `readFile()`, but doing the same over a network requires creating dedicated endpoints, defining payloads, handling HTTP status codes, and managing serialization.
+This overhead fragments development focus. A simple operation like reading a file transforms from a one-liner locally to a multi-step distributed process involving endpoint design, payload validation, error handling, and response parsing.
 
-### Traditional REST API Approach
+### Conventional REST Implementation
 
 ```ts
-// Client side - Complex fetch with specific URL and payload
+// Client: Manual request construction and response handling
 const response = await fetch('/api/files/readFile', {
   method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    path: 'file.txt',
-    encoding: 'utf8',
-  }),
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ path: 'file.txt', encoding: 'utf8' }),
 });
 
 if (!response.ok) {
-  throw new Error(`HTTP error! status: ${response.status}`);
+  throw new Error(`HTTP ${response.status}: ${response.statusText}`);
 }
 
-const result = await response.json();
-console.log(result.content);
+const { content } = await response.json();
+console.log(content);
 ```
 
 ```ts
@@ -76,25 +71,25 @@ app.post('/api/files/readFile', async (req, res) => {
 });
 ```
 
-## The Solution
+## The Solution: Communication Abstraction
 
-IRPC reimagines cross-boundary communication by abstracting away all networking concerns. Think of IRPC as Node.js, Transport as libuv, and Functions as Node APIs:
+IRPC reestablishes the network as a true abstraction layer. The architecture follows a familiar pattern inspired by Node.js:
 
-- **IRPC** acts like **_Node.js_** - it's the runtime that orchestrates everything
-- **Transport** acts like **_libuv_** - it's the underlying mechanism that handles the actual communication
-- **Functions** act like **_Node APIs_** (e.g., `fs.readFile`) - they're the familiar interfaces you use
+- **IRPC Runtime** ≈ **Node.js Core**: Orchestrates execution and manages the lifecycle
+- **Transport Layer** ≈ **libuv**: Handles low-level communication details
+- **Function Interfaces** ≈ **Node APIs**: Provide familiar, ergonomic interfaces
 
-This architecture allows developers to focus entirely on solving problems rather than wrestling with communication protocols. IRPC automatically handles:
+This separation of concerns allows developers to maintain flow state while working with distributed systems. IRPC transparently manages:
 
-- Serialization and deserialization
-- Network error handling
-- Request/response matching
-- Load balancing and batching
-- Type safety and validation
+- Request/response serialization and deserialization
+- Network error detection and recovery
+- Call correlation and timeout handling
+- Request batching and optimization
+- End-to-end type safety and validation
 
-### IRPC Approach
+### IRPC Implementation
 
-First, you define your function stub in a header file (e.g., `/assets/fs.ts`):
+Define function contracts in shared modules:
 
 ```ts
 import { irpc } from '@irpclib/irpc';
@@ -104,90 +99,93 @@ export const readFile = irpc<(path: string, encoding?: string) => Promise<string
 });
 ```
 
-And implement it on the server side:
+Implement handlers on the server:
 
 ```ts
-// Server side - Just implement the function
 import { readFile as nodeReadFile } from 'node:fs/promises';
 import { irpc } from '@irpclib/irpc';
 import { readFile } from './fs';
 
 irpc.construct(readFile, async (path, encoding) => {
-  // Actual implementation using Node.js fs module
   return await nodeReadFile(path, encoding);
 });
 ```
 
-Then use it on the client side:
+Invoke functions from the client:
 
 ```ts
-// Client side - Simple function call
 import { readFile } from '/assets/fs.js';
 
 const content = await readFile('file.txt', 'utf8');
 console.log(content);
 ```
 
-## Key Benefits
+## Developer Experience Benefits
 
-1. **Unified Developer Experience**: Write remote calls as naturally as local ones with the same code working seamlessly on both client and server
-2. **Reduced Complexity**: Eliminate boilerplate API code and configuration
-3. **Type Safety**: Full TypeScript support with end-to-end type checking
-4. **Performance**: Automatic batching and optimization of network requests
-5. **Flexibility**: Pluggable transport layer supporting HTTP, WebSockets, and more
-6. **Distribution**: Package and distribute IRPC functions as libraries with semantic versioning for easy reuse across projects
-7. **Tree-Shakable**: Import only the functions you need, allowing bundlers to eliminate unused code for optimal bundle size
-8. **Automatic Serialization**: No more manual JSON serialization/deserialization or request/response parsing
-9. **Built-in Error Handling**: Consistent error handling without dealing with HTTP status codes
-10. **Protocol Agnostic**: Switch between HTTP, WebSockets, or other transports without changing your business logic
+IRPC delivers productivity gains across the entire development lifecycle:
 
-IRPC dramatically reduces development time across the entire project lifecycle:
+### Cognitive Load Reduction
+- **Single Mental Model**: Functions work the same regardless of execution location
+- **No Context Switching**: Stay in the problem domain, not the transport domain
+- **Intuitive Debugging**: Stack traces and error handling work as expected
 
-### API Design & Implementation
+### Boilerplate Elimination
+- **Zero Endpoint Configuration**: Functions are automatically discoverable and invocable
+- **No Contract Synchronization**: TypeScript types provide the single source of truth
+- **Automatic Serialization**: Focus on data structures, not wire formats
 
-- No need to design REST endpoints or GraphQL schemas
-- Eliminates API contract definition and maintenance
-- No OpenAPI/Swagger documentation to create and synchronize
+### Type Safety
+- **End-to-End Type Checking**: Compile-time validation from client to server
+- **Refactoring Safety**: IDE support for cross-boundary refactoring
+- **Self-Documenting APIs**: Function signatures serve as documentation
 
-### Client-Server Communication
+### Performance Optimization
+- **Intelligent Batching**: Automatic request coalescing for network efficiency
+- **Connection Reuse**: Transport layer manages connection pooling
+- **Lazy Loading**: Tree-shakable imports minimize bundle size
 
-- No fetch/axios configuration for every remote call
-- Eliminates manual JSON serialization/deserialization
-- No HTTP status code handling throughout the codebase
-- No CORS configuration or network proxy setup
+### Operational Simplicity
+- **Unified Error Handling**: Promise-based error propagation across boundaries
+- **Protocol Agnosticism**: Switch transports without modifying business logic
+- **Observability**: Built-in tracing and monitoring capabilities
 
-### Error Handling & Debugging
+## Architectural Principles
 
-- Single consistent error handling pattern
-- No mapping HTTP status codes to business errors
-- Eliminates network layer debugging and traffic inspection
+IRPC is guided by several core principles:
 
-### Testing & Quality Assurance
+### Isomorphism
+The same function signature and behavior regardless of execution context. This enables seamless local-to-remote transitions without code changes.
 
-- Easy mocking by replacing function implementations
-- No need to mock HTTP requests/responses
-- Direct function calls in unit tests without network overhead
-- Less boilerplate code to review in code reviews
+### Transport Agnosticism
+Business logic remains decoupled from transport mechanisms. HTTP, WebSockets, message queues, or future protocols can be swapped without impacting function implementations.
 
-### Development & Onboarding
+### Type Preservation
+Type information flows across boundaries, enabling compile-time guarantees and IDE support for distributed systems.
 
-- Functions are self-documenting with clear signatures
-- No separate API documentation to maintain
-- Rapid prototyping without stubbing endpoints
-- Faster onboarding for new team members
+### Ergonomic Design
+The API prioritizes developer experience, making distributed systems feel like local development.
 
-### Deployment & Operations
+### Performance by Default
+Intelligent batching, connection reuse, and optimization are built-in rather than add-on features.
 
-- No coordination needed between client and server API deployments
-- Functions can be deployed and versioned independently
-- Centralized function call tracing and monitoring
-- No separate API versioning strategy to maintain
+## Ecosystem Integration
 
-### Refactoring & Maintenance
+IRPC complements rather than replaces existing tools:
 
-- Renaming functions automatically updates all callers (with proper IDE support)
-- Changing function signatures provides compile-time safety
-- No need to update multiple API endpoints when logic changes
-- Eliminates duplicate caching or rate limiting logic
+- **Build Systems**: Integrates with bundlers for optimal code splitting
+- **Testing Frameworks**: Enables straightforward unit testing without network mocking
+- **Monitoring Tools**: Provides hooks for observability and performance tracking
+- **Development Tools**: Offers IDE extensions for enhanced development experience
 
-By treating network communication as what it should be - an implementation detail rather than a primary concern - IRPC unlocks a new level of developer productivity and code simplicity.
+## Migration Path
+
+IRPC can be adopted incrementally:
+
+1. **New Features**: Start with IRPC for new functionality
+2. **Critical Paths**: Migrate high-value, frequently changed APIs
+3. **Legacy Systems**: Gradually replace complex REST endpoints
+4. **Microservices**: Use IRPC for inter-service communication
+
+---
+
+IRPC represents a return to fundamentals: functions should be functions, regardless of where they execute. By treating the network as what it should be—an implementation detail—developers can focus on solving problems rather than managing communication infrastructure.

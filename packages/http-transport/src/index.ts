@@ -19,6 +19,10 @@ export type HTTPTransportConfig = {
 };
 
 export class IRPCHttpTransport implements IRPCTransport {
+  public headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  };
+
   public get url() {
     return new URL(this.config.endpoint, this.config.baseURL ?? '');
   }
@@ -26,7 +30,11 @@ export class IRPCHttpTransport implements IRPCTransport {
   constructor(
     public config: HTTPTransportConfig,
     public factory: IRPCFactory
-  ) {}
+  ) {
+    if (typeof config.headers === 'object' && config.headers !== null) {
+      Object.assign(this.headers, config.headers);
+    }
+  }
 
   public async send(calls: IRPCCall[]) {
     const requests = calls.map((call) => {
@@ -52,9 +60,7 @@ export class IRPCHttpTransport implements IRPCTransport {
 
     const response = await fetch(this.url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: this.headers,
       body: JSON.stringify(transportable),
     });
 

@@ -5,7 +5,8 @@ const BASE_URL = '';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: 'IRPC',
+  title: 'Isomorphic Remote Procedure Call',
+  titleTemplate: 'IRPC',
   description: 'Isomorphic Remote Procedure Call',
   head: [
     ['link', { rel: 'canonical', href: PAGE_URL }],
@@ -15,9 +16,19 @@ export default defineConfig({
     ['link', { rel: 'icon', href: `${BASE_URL}/icons/favicon-96x96.png`, sizes: '96x96' }],
     ['link', { rel: 'icon', href: `${BASE_URL}/icons/favicon-32x32.png`, sizes: '32x32' }],
     ['link', { rel: 'icon', href: `${BASE_URL}/icons/favicon-16x16.png`, sizes: '16x16' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    [
+      'link',
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap',
+      },
+    ],
   ],
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
+    logo: '/logo.svg',
+    siteTitle: 'IRPC',
+
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Overview', link: '/overview' },

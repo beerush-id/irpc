@@ -1,12 +1,12 @@
-import type { IRPCContext, IRPCContextStore } from './types.js';
+import type { IRPCContext, IRPCContextProvider } from './types.js';
 
-let currentStore: IRPCContextStore | undefined = undefined;
+let currentStore: IRPCContextProvider | undefined;
 /**
  * Sets the global context store for the IRPC system.
  * This store is used to manage context data across requests.
  * @param store - The context store implementation to use
  */
-export function setContextStore(store: IRPCContextStore) {
+export function setContextProvider(store: IRPCContextProvider) {
   currentStore = store;
 }
 

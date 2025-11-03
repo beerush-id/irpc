@@ -4,25 +4,104 @@ layout: home
 
 hero:
   name: 'IRPC'
-  text: 'An Isomorphic Remote Procedure Call'
-  tagline: The best way to call remote procedures.
-  image: /logo.svg
+  text: 'Isomorphic Remote Procedure Call'
+  tagline: Write once, run anywhere. Truly isomorphic, zero-boilerplate remote procedure calls.
+  image: /hero.svg
   actions:
     - theme: brand
       text: Get Started
       link: /typescript/getting-started
     - theme: alt
-      text: Overview
-      link: /overview
-    - theme: alt
       text: Specification
       link: /specification
-
-features:
-  - title: Isomorphic Functions
-    details: Write once, run anywhere. Call functions identically on client and server without thinking about network boundaries.
-  - title: Zero Boilerplate
-    details: Eliminate REST endpoints, GraphQL schemas, and complex serialization logic. Just call functions naturally.
-  - title: Pluggable Transports
-    details: Switch between HTTP, WebSockets, and other transports without changing your function signatures.
 ---
+
+<div class="card-grid">
+<div class="card-grid-col comparison-card">
+
+#### /irpc/fs.ts
+
+```typescript
+import { irpc } from '@irpclib/irpc';
+
+type ReadFile = (path: string) => Promise<string>;
+
+export const readFile = irpc<ReadFile>({
+  name: 'readFile',
+});
+```
+
+</div>
+<div class="card-grid-col comparison-card">
+
+#### /api/fs.ts
+
+```typescript
+import { irpc } from '@irpclib/irpc';
+import { fs } from 'node:fs/promises';
+import { readFile } from '../irpc/fs';
+
+irpc.construct(readFile, async (path) => {
+  return await fs.readFile(path, 'utf8');
+});
+```
+
+</div>
+<div class="card-grid-col full comparison-card">
+
+#### /app/App.tsx
+
+```tsx
+import { readFile } from '../irpc/fs';
+
+export default function App() {
+  const [content, setContent] = useState('');
+
+  useEffect(() => {
+    readFile('file.txt').then(setContent);
+  }, []);
+
+  return (
+    <div>
+      <h1>File Content</h1>
+      <pre>{content}</pre>
+    </div>
+  );
+}
+```
+
+</div>
+</div>
+
+<div class="comparison-grid">
+  <div class="feature-card">
+    <div class="feature-icon">✨</div>
+    <h4>Isomorphic Design</h4>
+    <p>Call functions identically on client and server. IRPC abstracts network boundaries so you can focus on logic.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon">🚀</div>
+    <h4>Zero Boilerplate</h4>
+    <p>No REST endpoints, no GraphQL schemas, no complex serialization. Just write functions and call them.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon">🔌</div>
+    <h4>Transport Agnostic</h4>
+    <p>Switch between HTTP, WebSockets, and other transports without changing a single line of your business logic.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon">🧠</div>
+    <h4>Reduced Cognitive Load</h4>
+    <p>A single mental model for local and remote functions. No more context switching between your business logic and the transport domain.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon">🔒</div>
+    <h4>End-to-End Type Safety</h4>
+    <p>Compile-time validation from client to server, with IDE support for cross-boundary refactoring and self-documenting APIs.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon">⚡️</div>
+    <h4>Optimized Performance</h4>
+    <p>Intelligent batching, connection reuse, and tree-shakable imports for optimal network efficiency and minimal bundle size.</p>
+  </div>
+</div>

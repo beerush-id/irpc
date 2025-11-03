@@ -247,7 +247,7 @@ export type IRPCContext<K, V> = Map<K, V>;
 /**
  * Interface for managing RPC context stores.
  */
-export type IRPCContextStore = {
+export type IRPCContextProvider = {
   /**
    * Runs a function within a specific context.
    * @param ctx The context to run within
