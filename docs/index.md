@@ -22,7 +22,7 @@ hero:
 #### /irpc/fs.ts
 
 ```typescript
-import { irpc } from '@irpclib/irpc';
+import { irpc } from './irpc';
 
 type ReadFile = (path: string) => Promise<string>;
 
@@ -37,8 +37,8 @@ export const readFile = irpc<ReadFile>({
 #### /api/fs.ts
 
 ```typescript
-import { irpc } from '@irpclib/irpc';
 import { fs } from 'node:fs/promises';
+import { irpc } from '../irpc/irpc';
 import { readFile } from '../irpc/fs';
 
 irpc.construct(readFile, async (path) => {

@@ -13,7 +13,7 @@ npm install @irpclib/irpc
 For HTTP transport (most common), also install:
 
 ```bash
-npm install @irpclib/http-transport
+npm install @irpclib/http
 ```
 
 ## Creating Your First IRPC Module
@@ -26,7 +26,7 @@ Create a file `fs.ts`:
 
 ```ts
 import { irpc } from '@irpclib/irpc';
-import { IRPCHttpTransport } from '@irpclib/http-transport';
+import { IRPCHttpTransport } from '@irpclib/http';
 
 // Create the module
 export const fs = irpc.configure({

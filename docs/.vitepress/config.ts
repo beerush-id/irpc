@@ -42,8 +42,9 @@ export default defineConfig({
       {
         text: 'Typescript',
         items: [
-          { text: 'Getting Started', link: '/typescript/getting-started' },
+          { text: 'Overview', link: '/typescript/index.md' },
           { text: 'Installation', link: '/typescript/installation' },
+          { text: 'Getting Started', link: '/typescript/getting-started' },
           { text: 'Usage', link: '/typescript/usage' },
         ],
       },

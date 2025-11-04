@@ -1,5 +1,7 @@
 # IRPC Specification <Badge type="tip" text="v1.0" />
 
+![IRPC Schema](/diagrams/schema.svg)
+
 ## 1. Introduction
 
 IRPC (Isomorphic Remote Procedure Call) is a language-agnostic pattern that enables remote function calls with the same ergonomics as local function calls. This specification defines the core concepts, protocols, and interfaces required for interoperable IRPC implementations across different programming languages and environments.
