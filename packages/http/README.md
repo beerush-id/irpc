@@ -1,35 +1,57 @@
-# TypeScript Package Template (tsdown)
+# IRPC HTTP Transport
 
-A simple, zero-config TypeScript package template using tsdown for bundling. Perfect for creating libraries and packages with modern tooling.
+The HTTP transport package for IRPC (Isomorphic Remote Procedure Call) provides HTTP-based communication between IRPC clients and servers.
+
+## Learn More
+
+For detailed documentation, visit [https://irpc.mahdaen.name](https://irpc.mahdaen.name)
+
+## Quick Start
+
+### Installation
+
+```bash
+npm install @irpclib/http
+```
+
+### Usage
+
+```ts
+import { createModule } from '@irpclib/irpc';
+import { HTTPTransport } from '@irpclib/http';
+
+const irpc = createModule({ name: 'my-api', version: '1.0.0' });
+
+const transport = new HTTPTransport(
+  {
+    baseURL: 'http://localhost:3000',
+    endpoint: '/rpc',
+  },
+  irpc
+);
+```
+
+### Server Integration
+
+```ts
+Bun.serve({
+  routes: {
+    [transport.endpoint]: {
+      GET: () => new Response('OK'),
+      POST: (req) => transport.respond(req),
+    }
+  },
+});
+```
 
 ## Features
 
-- **TypeScript** - Write your code in TypeScript for type safety and better developer experience
-- **tsdown** - Zero-config bundler powered by esbuild for blazing fast builds
-- **ESLint** - Integrated code linting with modern ESLint configuration
-- **Prettier** - Code formatting that maintains consistent style
-- **Publint** - Package validation before publishing to npm
-- **Dual Package Support** - Outputs both ESM and CommonJS formats
-
-## Getting Started
-
-1. Clone this template
-2. Install dependencies with your preferred package manager
-3. Start developing with `npm run dev`
-
-## Scripts
-
-- `npm run dev` - Start development mode with watch
-- `npm run build` - Build the package for production
-- `npm run clean` - Remove the dist directory
-- `npm run prepublish` - Prepare the package for publishing
-
-## Output
-
-The build process generates:
-- CommonJS output (`*.cjs`)
-- ES Modules output (`*.js`)
-- TypeScript declarations (`*.d.ts`)
+- **HTTP-based Transport**: Seamless communication over HTTP/HTTPS
+- **Batch Request Support**: Efficiently batch multiple calls into single HTTP requests
+- **Middleware Support**: Add custom middleware for authentication, logging, and more
+- **Streaming Responses**: Stream responses for better performance with multiple concurrent calls
+- **Error Handling**: Comprehensive error handling with detailed error reporting
+- **Type Safety**: Full TypeScript support with end-to-end type checking
 
 ## License
 
