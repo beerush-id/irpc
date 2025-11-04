@@ -1,6 +1,42 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
+title: IRPC - Isomorphic Remote Procedure Call
+description: IRPC (Isomorphic Remote Procedure Call) allows you to call remote functions as naturally as local ones. Write once, run anywhere with zero-boilerplate remote procedure calls.
+head:
+  - - meta
+    - property: og:title
+      content: IRPC - Isomorphic Remote Procedure Call
+  - - meta
+    - property: og:description
+      content: Write once, run anywhere. Truly isomorphic, zero-boilerplate remote procedure calls.
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: og:image
+      content: https://irpc.anchorlib.dev/hero.png
+  - - meta
+    - property: og:url
+      content: https://irpc.anchorlib.dev/
+  - - meta
+    - name: keywords
+      content: rpc, remote procedure call, isomorphic, typescript, javascript, web development, api
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: IRPC - Isomorphic Remote Procedure Call
+  - - meta
+    - name: twitter:description
+      content: Write once, run anywhere. Truly isomorphic, zero-boilerplate remote procedure calls.
+  - - meta
+    - name: twitter:image
+      content: https://irpc.anchorlib.dev/hero.svg
+  - - script
+    - type: application/ld+json
+      innerHTML: '{ "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "IRPC", "description": "Isomorphic Remote Procedure Call - Write once, run anywhere. Truly isomorphic, zero-boilerplate remote procedure calls.", "url": "https://irpc.anchorlib.dev/" }'
 
 hero:
   name: 'IRPC'

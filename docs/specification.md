@@ -1,3 +1,42 @@
+---
+title: IRPC Specification
+description: The complete specification for IRPC (Isomorphic Remote Procedure Call) - a language-agnostic pattern that enables remote function calls with the same ergonomics as local function calls.
+head:
+  - - meta
+    - property: og:title
+      content: IRPC Specification
+  - - meta
+    - property: og:description
+      content: The complete specification for IRPC (Isomorphic Remote Procedure Call) - a language-agnostic pattern that enables remote function calls with the same ergonomics as local function calls.
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:image
+      content: https://irpc.anchorlib.dev/hero.png
+  - - meta
+    - property: og:url
+      content: https://irpc.anchorlib.dev/specification
+  - - meta
+    - name: keywords
+      content: irpc, specification, rpc, remote procedure call, protocol, wire format, transport, factory
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: IRPC Specification
+  - - meta
+    - name: twitter:description
+      content: The complete specification for IRPC (Isomorphic Remote Procedure Call) - a language-agnostic pattern that enables remote function calls with the same ergonomics as local function calls.
+  - - meta
+    - name: twitter:image
+      content: https://irpc.anchorlib.dev/hero.svg
+  - - script
+    - type: application/ld+json
+      innerHTML: '{ "@context": "https://schema.org", "@type": "TechArticle", "headline": "IRPC Specification", "description": "The complete specification for IRPC (Isomorphic Remote Procedure Call) - a language-agnostic pattern that enables remote function calls with the same ergonomics as local function calls.", "url": "https://irpc.anchorlib.dev/specification" }'
+---
+
 # IRPC Specification <Badge type="tip" text="v1.0" />
 
 ![IRPC Schema](/diagrams/schema.svg)

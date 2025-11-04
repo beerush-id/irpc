@@ -1,3 +1,42 @@
+---
+title: IRPC TypeScript Implementation
+description: Learn about the IRPC TypeScript implementation - a library that enables seamless remote procedure calls between client and server with a unified API.
+head:
+  - - meta
+    - property: og:title
+      content: IRPC TypeScript Implementation
+  - - meta
+    - property: og:description
+      content: Learn about the IRPC TypeScript implementation - a library that enables seamless remote procedure calls between client and server with a unified API.
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:image
+      content: https://irpc.anchorlib.dev/hero.png
+  - - meta
+    - property: og:url
+      content: https://irpc.anchorlib.dev/typescript/
+  - - meta
+    - name: keywords
+      content: irpc, typescript, implementation, rpc, remote procedure call, client, server, api
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: IRPC TypeScript Implementation
+  - - meta
+    - name: twitter:description
+      content: Learn about the IRPC TypeScript implementation - a library that enables seamless remote procedure calls between client and server with a unified API.
+  - - meta
+    - name: twitter:image
+      content: https://irpc.anchorlib.dev/hero.svg
+  - - script
+    - type: application/ld+json
+      innerHTML: '{ "@context": "https://schema.org", "@type": "TechArticle", "headline": "IRPC TypeScript Implementation", "description": "Learn about the IRPC TypeScript implementation - a library that enables seamless remote procedure calls between client and server with a unified API.", "url": "https://irpc.anchorlib.dev/typescript/" }'
+---
+
 # IRPC TypeScript Implementation
 
 IRPC (Isomorphic Remote Procedure Call) is a TypeScript library that enables seamless remote procedure calls between client and server with a unified API. This documentation covers the core concepts and usage patterns of IRPC in TypeScript.

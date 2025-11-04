@@ -4,7 +4,7 @@ The HTTP transport package for IRPC (Isomorphic Remote Procedure Call) provides 
 
 ## Learn More
 
-For detailed documentation, visit [https://irpc.mahdaen.name](https://irpc.mahdaen.name)
+For detailed documentation, visit [https://irpc.anchorlib.dev](https://irpc.anchorlib.dev)
 
 ## Quick Start
 

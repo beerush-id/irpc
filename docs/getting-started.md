@@ -1,3 +1,42 @@
+---
+title: Getting Started with IRPC
+description: Learn how to create your first IRPC module and make remote function calls as naturally as local ones. Step-by-step guide for setting up IRPC in your TypeScript project.
+head:
+  - - meta
+    - property: og:title
+      content: Getting Started with IRPC
+  - - meta
+    - property: og:description
+      content: Learn how to create your first IRPC module and make remote function calls as naturally as local ones.
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:image
+      content: https://irpc.anchorlib.dev/hero.png
+  - - meta
+    - property: og:url
+      content: https://irpc.anchorlib.dev/getting-started
+  - - meta
+    - name: keywords
+      content: irpc, getting started, tutorial, typescript, rpc, setup, installation, remote procedure call
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: Getting Started with IRPC
+  - - meta
+    - name: twitter:description
+      content: Learn how to create your first IRPC module and make remote function calls as naturally as local ones.
+  - - meta
+    - name: twitter:image
+      content: https://irpc.anchorlib.dev/hero.svg
+  - - script
+    - type: application/ld+json
+      innerHTML: '{ "@context": "https://schema.org", "@type": "TechArticle", "headline": "Getting Started with IRPC", "description": "Learn how to create your first IRPC module and make remote function calls as naturally as local ones.", "url": "https://irpc.anchorlib.dev/getting-started" }'
+---
+
 # Getting Started with IRPC
 
 IRPC (Isomorphic Remote Procedure Call) allows you to call remote functions as naturally as local ones. This guide will walk you through creating your first IRPC module.

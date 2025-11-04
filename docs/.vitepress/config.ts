@@ -8,8 +8,10 @@ export default defineConfig({
   title: 'Isomorphic Remote Procedure Call',
   titleTemplate: 'IRPC',
   description: 'Isomorphic Remote Procedure Call',
+  sitemap: {
+    hostname: PAGE_URL,
+  },
   head: [
-    ['link', { rel: 'canonical', href: PAGE_URL }],
     ['link', { rel: 'icon', href: `${BASE_URL}/icons/favicon.ico` }],
     ['link', { rel: 'icon', href: `${BASE_URL}/icons/favicon-196x196.png`, sizes: '196x196' }],
     ['link', { rel: 'icon', href: `${BASE_URL}/icons/favicon-128x128.png`, sizes: '128x128' }],
@@ -24,6 +26,13 @@ export default defineConfig({
         href: 'https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap',
       },
     ],
+    ['meta', { property: 'og:site_name', content: 'IRPC' }],
+    ['meta', { property: 'og:image:alt', content: 'IRPC - Isomorphic Remote Procedure Call' }],
+    ['meta', { property: 'og:image:type', content: 'image/png' }],
+    ['meta', { property: 'og:image:width', content: '1200' }],
+    ['meta', { property: 'og:image:height', content: '630' }],
+    ['meta', { name: 'twitter:site', content: '@irpc' }],
+    ['link', { rel: 'canonical', href: PAGE_URL }],
   ],
   themeConfig: {
     logo: '/logo.svg',

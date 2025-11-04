@@ -1,3 +1,42 @@
+---
+title: IRPC Overview
+description: Learn about IRPC (Isomorphic Remote Procedure Call) - a paradigm shift in distributed systems that eliminates the cognitive overhead of network communication.
+head:
+  - - meta
+    - property: og:title
+      content: IRPC Overview
+  - - meta
+    - property: og:description
+      content: Learn about IRPC (Isomorphic Remote Procedure Call) - a paradigm shift in distributed systems that eliminates the cognitive overhead of network communication.
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:image
+      content: https://irpc.anchorlib.dev/hero.png
+  - - meta
+    - property: og:url
+      content: https://irpc.anchorlib.dev/overview
+  - - meta
+    - name: keywords
+      content: irpc, overview, distributed systems, rpc, remote procedure call, isomorphic, typescript, javascript
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: IRPC Overview
+  - - meta
+    - name: twitter:description
+      content: Learn about IRPC (Isomorphic Remote Procedure Call) - a paradigm shift in distributed systems that eliminates the cognitive overhead of network communication.
+  - - meta
+    - name: twitter:image
+      content: https://irpc.anchorlib.dev/hero.svg
+  - - script
+    - type: application/ld+json
+      innerHTML: '{ "@context": "https://schema.org", "@type": "TechArticle", "headline": "IRPC Overview", "description": "Learn about IRPC (Isomorphic Remote Procedure Call) - a paradigm shift in distributed systems that eliminates the cognitive overhead of network communication.", "url": "https://irpc.anchorlib.dev/overview" }'
+---
+
 # Overview
 
 **IRPC** (**Isomorphic Remote Procedure Call**) is a paradigm shift in distributed systems that eliminates the cognitive overhead of network communication. It enables developers to invoke remote functions with the same ergonomics as local function calls, abstracting away the transport layer entirely.

@@ -1,3 +1,42 @@
+---
+title: Getting Started with IRPC TypeScript
+description: Learn how to create your first IRPC application with TypeScript, including modules, functions, transports, and server setup.
+head:
+  - - meta
+    - property: og:title
+      content: Getting Started with IRPC TypeScript
+  - - meta
+    - property: og:description
+      content: Learn how to create your first IRPC application with TypeScript, including modules, functions, transports, and server setup.
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:image
+      content: https://irpc.anchorlib.dev/hero.png
+  - - meta
+    - property: og:url
+      content: https://irpc.anchorlib.dev/typescript/getting-started
+  - - meta
+    - name: keywords
+      content: irpc, typescript, getting started, tutorial, modules, functions, transport, server
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: Getting Started with IRPC TypeScript
+  - - meta
+    - name: twitter:description
+      content: Learn how to create your first IRPC application with TypeScript, including modules, functions, transports, and server setup.
+  - - meta
+    - name: twitter:image
+      content: https://irpc.anchorlib.dev/hero.svg
+  - - script
+    - type: application/ld+json
+      innerHTML: '{ "@context": "https://schema.org", "@type": "TechArticle", "headline": "Getting Started with IRPC TypeScript", "description": "Learn how to create your first IRPC application with TypeScript, including modules, functions, transports, and server setup.", "url": "https://irpc.anchorlib.dev/typescript/getting-started" }'
+---
+
 # Getting Started
 
 This guide will walk you through creating your first IRPC application with TypeScript.

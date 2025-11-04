@@ -6,7 +6,7 @@ Unlike traditional approaches like REST APIs, GraphQL, or gRPC, IRPC removes the
 
 ## Learn More
 
-For detailed documentation, visit [https://irpc.mahdaen.name](https://irpc.mahdaen.name)
+For detailed documentation, visit [https://irpc.anchorlib.dev](https://irpc.anchorlib.dev)
 
 ## Quick Start
 

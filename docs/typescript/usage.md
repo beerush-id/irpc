@@ -1,3 +1,42 @@
+---
+title: IRPC TypeScript Usage Patterns
+description: Learn advanced usage patterns and features of IRPC in TypeScript including schema validation, context management, error handling, and batch operations.
+head:
+  - - meta
+    - property: og:title
+      content: IRPC TypeScript Usage Patterns
+  - - meta
+    - property: og:description
+      content: Learn advanced usage patterns and features of IRPC in TypeScript including schema validation, context management, error handling, and batch operations.
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:image
+      content: https://irpc.anchorlib.dev/hero.png
+  - - meta
+    - property: og:url
+      content: https://irpc.anchorlib.dev/typescript/usage
+  - - meta
+    - name: keywords
+      content: irpc, typescript, usage, patterns, schema validation, context management, error handling, batch operations
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: IRPC TypeScript Usage Patterns
+  - - meta
+    - name: twitter:description
+      content: Learn advanced usage patterns and features of IRPC in TypeScript including schema validation, context management, error handling, and batch operations.
+  - - meta
+    - name: twitter:image
+      content: https://irpc.anchorlib.dev/hero.svg
+  - - script
+    - type: application/ld+json
+      innerHTML: '{ "@context": "https://schema.org", "@type": "TechArticle", "headline": "IRPC TypeScript Usage Patterns", "description": "Learn advanced usage patterns and features of IRPC in TypeScript including schema validation, context management, error handling, and batch operations.", "url": "https://irpc.anchorlib.dev/typescript/usage" }'
+---
+
 # Usage Patterns
 
 This guide covers advanced usage patterns and features of IRPC in TypeScript.
