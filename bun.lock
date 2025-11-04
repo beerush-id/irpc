@@ -9,8 +9,8 @@
         "vitepress": "catalog:",
       },
     },
-    "packages/http-transport": {
-      "name": "@irpclib/http-transport",
+    "packages/http": {
+      "name": "@irpclib/http",
       "version": "0.0.1",
       "devDependencies": {
         "@biomejs/biome": "catalog:",
@@ -55,21 +55,15 @@
   },
   "catalog": {
     "@biomejs/biome": "2.3.3",
-    "@eslint/css": "^0.13.0",
-    "@eslint/js": "^9.38.0",
-    "@eslint/markdown": "^7.5.0",
     "@types/bun": "1.3.1",
     "@vitest/coverage-v8": "^3.2.4",
     "@vitest/ui": "^3.2.4",
     "esbuild-raw-plugin": "^0.3.1",
-    "eslint": "^9.38.0",
-    "eslint-plugin-prettier": "^5.5.4",
     "prettier": "^3.6.2",
     "publint": "^0.3.15",
     "rimraf": "^6.0.1",
     "tsdown": "^0.15.9",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.2",
     "vite": "^7.1.12",
     "vitepress": "^2.0.0-alpha.12",
     "vitest": "^3.2.4",
@@ -186,7 +180,7 @@
 
     "@iconify/types": ["@iconify/types@2.0.0", "", {}, "sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg=="],
 
-    "@irpclib/http-transport": ["@irpclib/http-transport@workspace:packages/http-transport"],
+    "@irpclib/http": ["@irpclib/http@workspace:packages/http"],
 
     "@irpclib/irpc": ["@irpclib/irpc@workspace:packages/irpc"],
 
