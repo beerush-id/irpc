@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "name": "@irpclib/http-transport",
+  "name": "@irpclib/http",
   "version": "0.0.1",
   "main": "./dist/index.cjs",
   "types": "./dist/index.d.ts",

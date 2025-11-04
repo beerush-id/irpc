@@ -1,6 +1,7 @@
 import {
   createContext,
   type IRPCCall,
+  type IRPCContext,
   type IRPCData,
   type IRPCFactory,
   type IRPCInputs,
@@ -18,13 +19,21 @@ export type HTTPTransportConfig = {
   headers?: Record<string, string>;
 };
 
+export type HTTPMiddleware = <K, V>(req: Request, ctx: IRPCContext<K, V>) => Promise<void> | void;
+
 export class HTTPTransport implements IRPCTransport {
+  #middleware: HTTPMiddleware[] = [];
+
   public headers: Record<string, string> = {
     'Content-Type': 'application/json',
   };
 
   public get url() {
     return new URL(this.config.endpoint, this.config.baseURL ?? '');
+  }
+
+  public get endpoint() {
+    return this.url.pathname;
   }
 
   constructor(
@@ -34,6 +43,13 @@ export class HTTPTransport implements IRPCTransport {
     if (typeof config.headers === 'object' && config.headers !== null) {
       Object.assign(this.headers, config.headers);
     }
+
+    factory.use(this);
+  }
+
+  public use(middleware: HTTPMiddleware) {
+    this.#middleware.push(middleware);
+    return this;
   }
 
   public async send(calls: IRPCCall[]) {
@@ -111,7 +127,6 @@ export class HTTPTransport implements IRPCTransport {
                 }
               }
             }
-            // eslint-disable-next-line
           } catch (_e) {
             // Skip invalid JSON lines
           }
@@ -131,27 +146,26 @@ export class HTTPTransport implements IRPCTransport {
       return new Response(JSON.stringify([]), { status: 204 });
     }
 
-    const readable = new ReadableStream({
-      start: async (controller) => {
-        const contexts = new WeakMap();
-        const finalize = (req: IRPCRequest) => {
-          contexts.get(req)?.clear();
-          contexts.delete(req);
-          requests.delete(req);
+    const ctx = createContext<string, unknown>([
+      ['req', src],
+      ['headers', src.headers],
+    ]);
 
-          if (!requests.size) {
-            controller.close();
-          }
-        };
+    await Promise.allSettled(this.#middleware.map((middleware) => middleware(src, ctx)));
 
-        requests.forEach((req) => {
-          const ctx = createContext<string, unknown>([
-            ['req', src],
-            ['headers', src.headers],
-          ]);
-          contexts.set(req, ctx);
+    return withContext(ctx, () => {
+      const readable = new ReadableStream({
+        start: async (controller) => {
+          const finalize = (req: IRPCRequest) => {
+            requests.delete(req);
 
-          withContext(ctx, () => {
+            if (!requests.size) {
+              controller.close();
+              ctx.clear();
+            }
+          };
+
+          requests.forEach((req) => {
             const spec = this.factory.info(req);
 
             if (!spec) {
@@ -229,28 +243,26 @@ export class HTTPTransport implements IRPCTransport {
                 finalize(req);
               });
           });
-        });
-      },
-    });
+        },
+      });
 
-    return new Response(readable, {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      return new Response(readable, {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
     });
   }
 
   public serve() {
     return {
-      [this.url.pathname]: {
-        GET: async () => {
-          const { name, version } = this.factory.namespace;
-          return new Response(`${name}@${version} is healthy.`);
-        },
-        POST: async (src: Request) => {
-          return this.respond(src);
-        },
+      info: () => {
+        const { name, version } = this.factory.namespace;
+        return new Response(`${name}@${version} is healthy.`);
+      },
+      handle: (req: Request) => {
+        return this.respond(req);
       },
     };
   }
