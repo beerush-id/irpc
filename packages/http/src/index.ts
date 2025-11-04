@@ -22,18 +22,17 @@ export type HTTPTransportConfig = {
 export type HTTPMiddleware = <K, V>(req: Request, ctx: IRPCContext<K, V>) => Promise<void> | void;
 
 export class HTTPTransport implements IRPCTransport {
-  #middleware: HTTPMiddleware[] = [];
-
+  public middlewares: HTTPMiddleware[] = [];
   public headers: Record<string, string> = {
     'Content-Type': 'application/json',
   };
 
   public get url() {
-    return new URL(this.config.endpoint, this.config.baseURL ?? '');
+    return createURL(this.config.endpoint, this.config.baseURL);
   }
 
   public get endpoint() {
-    return this.url.pathname;
+    return this.config.endpoint;
   }
 
   constructor(
@@ -48,7 +47,7 @@ export class HTTPTransport implements IRPCTransport {
   }
 
   public use(middleware: HTTPMiddleware) {
-    this.#middleware.push(middleware);
+    this.middlewares.push(middleware);
     return this;
   }
 
@@ -151,7 +150,7 @@ export class HTTPTransport implements IRPCTransport {
       ['headers', src.headers],
     ]);
 
-    await Promise.allSettled(this.#middleware.map((middleware) => middleware(src, ctx)));
+    await Promise.allSettled(this.middlewares.map((middleware) => middleware(src, ctx)));
 
     return withContext(ctx, () => {
       const readable = new ReadableStream({
@@ -301,4 +300,10 @@ function parseOutput(result: unknown, schema?: IRPCOutput) {
     success: true,
     data: result,
   } as IRPCParseResult;
+}
+
+function createURL(endpoint: string, base?: string) {
+  const baseURL = (base ?? '').replace(/\/+$/, '');
+  const pathname = endpoint.replace(/^\/+/, '').replace(/[\/]+/, '/');
+  return [baseURL, pathname].join('/');
 }

@@ -12,9 +12,7 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "directories": {
     "dist": "dist"
   },
@@ -31,7 +29,8 @@
     "rimraf": "catalog:",
     "tsdown": "catalog:",
     "vite": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "catalog:",
+    "@types/bun": "catalog:"
   },
   "peerDependencies": {
     "@irpclib/irpc": "workspace:*",
@@ -41,6 +40,8 @@
     "dev": "tsdown --watch",
     "clean": "rimraf dist",
     "build": "tsdown && publint",
+    "test": "rimraf coverage && vitest --run",
+    "test:preview": "rimraf coverage && vitest --run && vite preview --outDir coverage",
     "prepublish": "tsdown && publint"
   },
   "license": "MIT"
