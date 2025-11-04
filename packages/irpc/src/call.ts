@@ -1,5 +1,6 @@
-import { shortId } from './utils.js';
 import type { IRPCPayload } from './types.js';
+import { shortId } from './utils.js';
+
 /**
  * Represents an RPC call with promise-like behavior for handling asynchronous operations.
  * Each call has a unique identifier and manages its own resolution state.
@@ -9,7 +10,7 @@ export class IRPCCall {
    * Unique identifier for this RPC call, generated using shortId().
    */
   public id = shortId();
-  
+
   /**
    * Flag indicating whether this call has been resolved or rejected.
    * Prevents multiple resolutions of the same call.

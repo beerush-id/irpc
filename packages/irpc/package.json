@@ -20,22 +20,17 @@
     "access": "public"
   },
   "devDependencies": {
-    "@eslint/css": "catalog:",
-    "@eslint/js": "catalog:",
-    "@eslint/markdown": "catalog:",
+    "@biomejs/biome": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
+    "@vitest/ui": "catalog:",
     "esbuild-raw-plugin": "catalog:",
-    "eslint": "catalog:",
-    "eslint-plugin-prettier": "catalog:",
     "prettier": "catalog:",
     "publint": "catalog:",
     "rimraf": "catalog:",
     "tsdown": "catalog:",
-    "typescript-eslint": "catalog:",
-    "zod": "catalog:lib",
-    "@vitest/coverage-v8": "catalog:",
-    "@vitest/ui": "catalog:",
     "vite": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "catalog:",
+    "zod": "catalog:lib"
   },
   "peerDependencies": {
     "typescript": "catalog:lib"

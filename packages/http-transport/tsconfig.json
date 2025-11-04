@@ -22,5 +22,5 @@
     "verbatimModuleSyntax": true
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["eslint.config.js", "tsup.config.ts"]
+  "exclude": ["tsup.config.ts"]
 }

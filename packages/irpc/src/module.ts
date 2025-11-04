@@ -1,3 +1,5 @@
+import { batch } from './batch.js';
+import { IRPCCall } from './call.js';
 import type {
   IRPCData,
   IRPCFactory,
@@ -11,8 +13,6 @@ import type {
   IRPCSpec,
   IRPCStore,
 } from './types.js';
-import { IRPCCall } from './call.js';
-import { batch } from './batch.js';
 
 const DEFAULT_TIMEOUT = 20000;
 

@@ -18,7 +18,7 @@ export type HTTPTransportConfig = {
   headers?: Record<string, string>;
 };
 
-export class IRPCHttpTransport implements IRPCTransport {
+export class HTTPTransport implements IRPCTransport {
   public headers: Record<string, string> = {
     'Content-Type': 'application/json',
   };
@@ -43,7 +43,7 @@ export class IRPCHttpTransport implements IRPCTransport {
 
       if (!args.success) {
         call.reject(new Error(args.error));
-        return;
+        return null;
       }
 
       return {
@@ -112,7 +112,7 @@ export class IRPCHttpTransport implements IRPCTransport {
               }
             }
             // eslint-disable-next-line
-          } catch (e) {
+          } catch (_e) {
             // Skip invalid JSON lines
           }
         }
@@ -244,7 +244,7 @@ export class IRPCHttpTransport implements IRPCTransport {
   public serve() {
     return {
       [this.url.pathname]: {
-        GET: async (src: Request) => {
+        GET: async () => {
           const { name, version } = this.factory.namespace;
           return new Response(`${name}@${version} is healthy.`);
         },
