@@ -1,17 +1,18 @@
 import { batch } from './batch.js';
 import { IRPCCall } from './call.js';
-import type {
-  IRPCData,
-  IRPCFactory,
-  IRPCHandler,
-  IRPCHost,
-  IRPCInputs,
-  IRPCModule,
-  IRPCOutput,
-  IRPCPayload,
-  IRPCRegistry,
-  IRPCSpec,
-  IRPCStore,
+import {
+  type IRPCData,
+  type IRPCFactory,
+  type IRPCHandler,
+  type IRPCHost,
+  type IRPCInputs,
+  type IRPCModule,
+  type IRPCOutput,
+  type IRPCPayload,
+  type IRPCRegistry,
+  type IRPCSpec,
+  type IRPCStore,
+  IRPCTransport,
 } from './types.js';
 
 const DEFAULT_TIMEOUT = 20000;
@@ -66,6 +67,10 @@ export function createModule(config?: Partial<Omit<IRPCModule, 'submit' | 'trans
    * @param handler - The actual implementation of the IRPC function
    */
   factory.construct = (<F extends IRPCHandler>(irpc: F, handler: F) => {
+    if (typeof irpc !== 'function') {
+      throw new Error('Invalid IRPC.');
+    }
+
     const host = registry.get(irpc) as IRPCHost<IRPCInputs, IRPCOutput>;
 
     if (!host) {
@@ -80,6 +85,10 @@ export function createModule(config?: Partial<Omit<IRPCModule, 'submit' | 'trans
    * @param transport - The transport layer to use for remote calls
    */
   factory.use = ((transport) => {
+    if (typeof transport?.send !== 'function') {
+      throw new Error('Invalid transport.');
+    }
+
     module.transport = transport;
   }) as IRPCFactory['use'];
 
@@ -133,19 +142,21 @@ export function createModule(config?: Partial<Omit<IRPCModule, 'submit' | 'trans
    * @param calls - Array of IRPC calls to submit
    */
   module.submit = ((calls: IRPCCall[]) => {
-    if (!module.transport) {
-      const error = new Error('IRPC transport can not be found.');
-      calls.forEach((call) => {
-        call.reject(error);
-      });
-      return;
-    }
+    try {
+      const promise = (module.transport as IRPCTransport).send(calls);
 
-    module.transport.send(calls).catch(() => {
+      if (promise instanceof Promise) {
+        promise.catch((reason) => {
+          calls.forEach((call) => {
+            call.reject(reason);
+          });
+        });
+      }
+    } catch (error) {
       calls.forEach((call) => {
-        call.reject(new Error('IRPC failed.'));
+        call.reject(error as Error);
       });
-    });
+    }
   }) as IRPCModule['submit'];
 
   return factory;
@@ -166,11 +177,12 @@ export function createModule(config?: Partial<Omit<IRPCModule, 'submit' | 'trans
 function remoteCall(module: IRPCModule, spec: IRPCSpec<IRPCInputs, IRPCOutput>, ...args: IRPCData[]) {
   const payload = { name: spec.name, args } as IRPCPayload;
 
-  if (!module.transport) {
-    throw new Error('IRPC transport can not be found.');
-  }
-
   return new Promise((resolve, reject) => {
+    if (!module.transport) {
+      reject(new Error('IRPC transport can not be found.'));
+      return;
+    }
+
     const timeout = module.timeout
       ? setTimeout(() => {
           call.reject(new Error('IRPC timeout.'));

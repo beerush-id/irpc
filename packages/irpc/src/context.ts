@@ -49,5 +49,9 @@ export function setContext<V, K extends string = string>(key: K, value: V): void
  */
 export function getContext<V, K extends string = string>(key: K, fallback?: V): V | undefined {
   const context = currentStore?.getStore();
-  return (context?.get(key) ?? fallback) as V;
+  const result = context?.get(key);
+
+  if (typeof result === 'undefined' && typeof fallback !== 'undefined') return fallback;
+
+  return result as V;
 }

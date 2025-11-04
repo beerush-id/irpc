@@ -10,9 +10,7 @@
       "import": "./dist/index.js"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "directories": {
     "dist": "./dist"
   },
@@ -30,7 +28,8 @@
     "tsdown": "catalog:",
     "vite": "catalog:",
     "vitest": "catalog:",
-    "zod": "catalog:lib"
+    "zod": "catalog:lib",
+    "@types/bun": "catalog:"
   },
   "peerDependencies": {
     "typescript": "catalog:lib"
@@ -43,6 +42,8 @@
     "clean": "rimraf dist",
     "build": "tsdown && publint",
     "format": "prettier --write .",
+    "test": "rimraf coverage && vitest --run",
+    "test:preview": "rimraf coverage && vitest --run && vite preview --outDir coverage",
     "prepublish": "bun run format && bun run clean && tsdown && publint"
   },
   "license": "MIT"
