@@ -16,7 +16,7 @@ describe('HTTP Package', () => {
         };
 
         const transport = new HTTPTransport(config, mockFactory);
-        
+
         expect(transport.url).toBe('https://example.com/api/rpc');
       });
 
@@ -30,7 +30,7 @@ describe('HTTP Package', () => {
         };
 
         const transport = new HTTPTransport(config, mockFactory);
-        
+
         expect(transport.url).toBe('/api/rpc');
       });
 
@@ -45,7 +45,7 @@ describe('HTTP Package', () => {
         };
 
         const transport = new HTTPTransport(config, mockFactory);
-        
+
         expect(transport.url).toBe('https://example.com/api/rpc');
       });
 
@@ -60,7 +60,7 @@ describe('HTTP Package', () => {
         };
 
         const transport = new HTTPTransport(config, mockFactory);
-        
+
         expect(transport.url).toBe('https://example.com/api/rpc');
       });
     });

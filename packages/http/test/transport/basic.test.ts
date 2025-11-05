@@ -57,7 +57,7 @@ describe('HTTP Package', () => {
 
         expect(transport.middlewares).toContain(middleware);
       });
-      
+
       it('should return self when adding middleware for chaining', () => {
         const mockFactory = {
           use: vi.fn(),
@@ -69,7 +69,7 @@ describe('HTTP Package', () => {
 
         const transport = new HTTPTransport(config, mockFactory);
         const result = transport.use(vi.fn());
-        
+
         expect(result).toBe(transport);
       });
     });

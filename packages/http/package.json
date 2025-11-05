@@ -10,9 +10,7 @@
       "import": "./dist/index.js"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "directories": {
     "dist": "./dist"
   },
@@ -42,7 +40,8 @@
     "build": "tsdown && publint",
     "test": "rimraf coverage && vitest --run",
     "test:preview": "rimraf coverage && vitest --run && vite preview --outDir coverage",
-    "prepublish": "tsdown && publint"
+    "prepublish": "tsdown && publint",
+    "format": "biome format --write"
   },
   "license": "MIT"
 }

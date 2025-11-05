@@ -10,9 +10,7 @@
       "import": "./dist/index.js"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "directories": {
     "dist": "./dist"
   },
@@ -43,7 +41,7 @@
     "dev": "tsdown --watch",
     "clean": "rimraf dist",
     "build": "tsdown && publint",
-    "format": "prettier --write .",
+    "format": "biome format --write",
     "test": "rimraf coverage && vitest --run",
     "test:preview": "rimraf coverage && vitest --run && vite preview --outDir coverage",
     "prepublish": "bun run format && bun run clean && tsdown && publint"

@@ -10,8 +10,8 @@ describe('HTTP Package', () => {
           use: vi.fn(),
           namespace: {
             name: 'test-package',
-            version: '1.0.0'
-          }
+            version: '1.0.0',
+          },
         } as unknown as IRPCFactory;
 
         const config = {
@@ -20,7 +20,7 @@ describe('HTTP Package', () => {
 
         const transport = new HTTPTransport(config, mockFactory);
         const server = transport.serve();
-        
+
         expect(server).toHaveProperty('info');
         expect(server).toHaveProperty('handle');
         expect(typeof server.info).toBe('function');
@@ -32,8 +32,8 @@ describe('HTTP Package', () => {
           use: vi.fn(),
           namespace: {
             name: 'test-package',
-            version: '1.0.0'
-          }
+            version: '1.0.0',
+          },
         } as unknown as IRPCFactory;
 
         const config = {
@@ -43,7 +43,7 @@ describe('HTTP Package', () => {
         const transport = new HTTPTransport(config, mockFactory);
         const server = transport.serve();
         const response = server.info();
-        
+
         expect(response).toBeInstanceOf(Response);
         expect(response.status).toBe(200);
       });

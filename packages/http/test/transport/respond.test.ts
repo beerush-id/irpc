@@ -15,10 +15,10 @@ describe('HTTP Package', () => {
         };
 
         const transport = new HTTPTransport(config, mockFactory);
-        
+
         const mockRequest = {
           json: vi.fn().mockResolvedValue([]),
-          headers: new Map()
+          headers: new Map(),
         };
 
         // Since creating a 204 response with body throws an error in newer Node.js versions,
@@ -42,24 +42,24 @@ describe('HTTP Package', () => {
         };
 
         const transport = new HTTPTransport(config, mockFactory);
-        
+
         const middleware = vi.fn();
         transport.use(middleware);
-        
+
         const mockRequest = {
           json: vi.fn().mockResolvedValue([{ id: '1', name: 'test', args: [] }]),
-          headers: new Map()
+          headers: new Map(),
         };
 
         await transport.respond(mockRequest as any);
-        
+
         expect(middleware).toHaveBeenCalled();
       });
 
       it('should handle missing RPC method', async () => {
         const mockFactory = {
           use: vi.fn(),
-          info: vi.fn().mockReturnValue(null)
+          info: vi.fn().mockReturnValue(null),
         } as unknown as IRPCFactory;
 
         const config = {
@@ -67,10 +67,10 @@ describe('HTTP Package', () => {
         };
 
         const transport = new HTTPTransport(config, mockFactory);
-        
+
         const mockRequest = {
           json: vi.fn().mockResolvedValue([{ id: '1', name: 'nonexistent', args: [] }]),
-          headers: new Map()
+          headers: new Map(),
         };
 
         const response = await transport.respond(mockRequest as any);

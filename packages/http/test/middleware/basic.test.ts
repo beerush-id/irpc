@@ -41,7 +41,7 @@ describe('HTTP Package', () => {
         expect(result).toBe(transport);
         expect(transport.middlewares).toHaveLength(2);
       });
-      
+
       it('should execute middleware during respond', async () => {
         const mockFactory = {
           use: vi.fn(),
@@ -54,14 +54,14 @@ describe('HTTP Package', () => {
         const transport = new HTTPTransport(config, mockFactory);
         const middleware = vi.fn();
         transport.use(middleware);
-        
+
         const mockRequest = {
           json: vi.fn().mockResolvedValue([{ id: '1', name: 'test', args: [] }]),
-          headers: new Map()
+          headers: new Map(),
         };
-        
+
         await transport.respond(mockRequest as any);
-        
+
         // Middleware should be called during respond
         expect(middleware).toHaveBeenCalled();
       });

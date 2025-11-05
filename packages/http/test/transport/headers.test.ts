@@ -15,7 +15,7 @@ describe('HTTP Package', () => {
         };
 
         const transport = new HTTPTransport(config, mockFactory);
-        
+
         expect(transport.headers).toEqual({
           'Content-Type': 'application/json',
         });
@@ -29,17 +29,17 @@ describe('HTTP Package', () => {
         const config = {
           endpoint: '/api/rpc',
           headers: {
-            'Authorization': 'Bearer token',
-            'X-Custom-Header': 'custom-value'
-          }
+            Authorization: 'Bearer token',
+            'X-Custom-Header': 'custom-value',
+          },
         };
 
         const transport = new HTTPTransport(config, mockFactory);
-        
+
         expect(transport.headers).toEqual({
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer token',
-          'X-Custom-Header': 'custom-value'
+          Authorization: 'Bearer token',
+          'X-Custom-Header': 'custom-value',
         });
       });
 
@@ -52,11 +52,11 @@ describe('HTTP Package', () => {
           endpoint: '/api/rpc',
           headers: {
             'Content-Type': 'application/custom-type',
-          }
+          },
         };
 
         const transport = new HTTPTransport(config, mockFactory);
-        
+
         expect(transport.headers).toEqual({
           'Content-Type': 'application/custom-type',
         });
