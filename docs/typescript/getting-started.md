@@ -110,7 +110,7 @@ export const mathIrpc = createModule({
 export const mathTransport = new HTTPTransport(
   {
     baseURL: 'http://localhost:3000',
-    endpoint: '/rpc',
+    endpoint: mathIrpc.endpoint,
     headers: {
       'Content-Type': 'application/json',
     },
@@ -206,7 +206,7 @@ export const multiply = mathIrpc<MultiplyFunction>({
 export const mathTransport = new HTTPTransport(
   {
     baseURL: 'http://localhost:3000',
-    endpoint: '/rpc',
+    endpoint: mathIrpc.endpoint,
     headers: {
       'Content-Type': 'application/json',
     },
@@ -254,7 +254,7 @@ Bun.serve({
 ```
 
 **app/App.tsx:**
-```ts
+```tsx
 import { add, multiply } from '../irpc/math';
 
 export default function App() {

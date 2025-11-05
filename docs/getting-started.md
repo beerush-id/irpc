@@ -83,7 +83,7 @@ export const readFile = fs<(path: string, encoding: string) => Promise<string>>(
 export const transport = new IRPCHttpTransport(
   {
     baseURL: 'http://localhost:3000',
-    endpoint: '/rpc',
+    endpoint: fs.endpoint,
   },
   fs
 );
@@ -96,7 +96,7 @@ fs.use(transport);
 In your server file:
 
 ```ts
-import { fs, readFile } from './fs';
+import { fs, readFile, transport } from './fs';
 import { setContextStore } from '@irpclib/irpc';
 import { AsyncLocalStorage } from 'async_hooks';
 
@@ -113,7 +113,12 @@ fs.construct(readFile, async (path, encoding) => {
 // Serve the RPC endpoint
 Bun.serve({
   routes: {
-    ...transport.serve(),
+    [transport.endpoint]: {
+      GET: () => {
+        return new Response('Ok!');
+      },
+      POST: (req) => transport.respond(req),
+    }
   },
 });
 ```
