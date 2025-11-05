@@ -253,18 +253,6 @@ export class HTTPTransport implements IRPCTransport {
       });
     });
   }
-
-  public serve() {
-    return {
-      info: () => {
-        const { name, version } = this.factory.namespace;
-        return new Response(`${name}@${version} is healthy.`);
-      },
-      handle: (req: Request) => {
-        return this.respond(req);
-      },
-    };
-  }
 }
 
 function parseInput(args: unknown[], schema?: IRPCInputs) {

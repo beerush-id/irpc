@@ -172,56 +172,6 @@ describe('HTTP Package', () => {
         global.fetch = originalFetch;
       });
 
-      it('should handle serve method info response', () => {
-        const mockFactory = {
-          use: vi.fn(),
-          namespace: {
-            name: 'test-package',
-            version: '1.0.0',
-          },
-        } as unknown as IRPCFactory;
-
-        const config = {
-          endpoint: '/api/rpc',
-        };
-
-        const transport = new HTTPTransport(config, mockFactory);
-        const server = transport.serve();
-        const response = server.info();
-
-        expect(response).toBeInstanceOf(Response);
-        expect(response.status).toBe(200);
-        // Note: We can't easily test the actual text content since it's an async operation
-      });
-
-      it('should handle serve method handle call', async () => {
-        const mockFactory = {
-          use: vi.fn(),
-        } as unknown as IRPCFactory;
-
-        const config = {
-          endpoint: '/api/rpc',
-        };
-
-        const transport = new HTTPTransport(config, mockFactory);
-        const server = transport.serve();
-
-        const mockRequest = {
-          json: vi.fn().mockResolvedValue([]),
-          headers: new Map(),
-        };
-
-        // Since creating a 204 response with body throws an error in newer Node.js versions,
-        // we'll expect the method to throw
-        try {
-          await server.handle(mockRequest as any);
-          // If it doesn't throw, check the response
-          expect(true).toBe(false); // Should not reach here
-        } catch (error) {
-          expect(error.message).toContain('Invalid response status code 204');
-        }
-      });
-
       it('should handle missing RPC method in respond', async () => {
         const mockFactory = {
           use: vi.fn(),
