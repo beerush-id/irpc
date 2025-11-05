@@ -165,6 +165,12 @@ export interface IRPCFactory {
   get namespace(): IRPCNamespace;
 
   /**
+   * Gets the endpoint URL for this factory.
+   * @param prefix Optional prefix to prepend to the endpoint, default to '/irpc'
+   */
+  endpoint(prefix?: string): string;
+
+  /**
    * Sets the transport mechanism for this factory.
    * @param transport The transport to use
    */

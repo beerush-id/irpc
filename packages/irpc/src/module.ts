@@ -1,17 +1,17 @@
 import { batch } from './batch.js';
 import { IRPCCall } from './call.js';
-import {
-  type IRPCData,
-  type IRPCFactory,
-  type IRPCHandler,
-  type IRPCHost,
-  type IRPCInputs,
-  type IRPCModule,
-  type IRPCOutput,
-  type IRPCPayload,
-  type IRPCRegistry,
-  type IRPCSpec,
-  type IRPCStore,
+import type {
+  IRPCData,
+  IRPCFactory,
+  IRPCHandler,
+  IRPCHost,
+  IRPCInputs,
+  IRPCModule,
+  IRPCOutput,
+  IRPCPayload,
+  IRPCRegistry,
+  IRPCSpec,
+  IRPCStore,
   IRPCTransport,
 } from './types.js';
 
@@ -29,8 +29,9 @@ const DEFAULT_TIMEOUT = 20000;
  */
 export function createModule(config?: Partial<Omit<IRPCModule, 'submit' | 'transport'>>) {
   const store: IRPCStore = new Map();
+
   const registry: IRPCRegistry = new WeakMap();
-  const module: IRPCModule = { name: 'irpc', version: '1.0.0', timeout: DEFAULT_TIMEOUT, ...config };
+  const module: IRPCModule = { name: 'global', version: '1.0.0', timeout: DEFAULT_TIMEOUT, ...config };
 
   /**
    * Factory function that creates IRPC handlers based on specifications.
@@ -60,6 +61,14 @@ export function createModule(config?: Partial<Omit<IRPCModule, 'submit' | 'trans
   Object.defineProperty(factory, 'namespace', {
     get: () => ({ name: module.name, version: module.version }),
   });
+
+  /**
+   * Returns the endpoint URL for the module.
+   * @type {(prefix?: string) => string}
+   */
+  factory.endpoint = ((prefix = 'irpc') => {
+    return ['/', prefix, module.name, module.version].join('/').replace(/\/+/g, '/');
+  }) as IRPCFactory['endpoint'];
 
   /**
    * Associates a handler function with an IRPC specification.

@@ -9,9 +9,10 @@ describe('IRPC - Core', () => {
         const factory = createModule();
 
         expect(factory.namespace).toEqual({
-          name: 'irpc',
+          name: 'global',
           version: '1.0.0',
         });
+        expect(factory.endpoint()).toBe('/irpc/global/1.0.0');
       });
 
       it('should create a module with custom configuration', () => {
@@ -82,7 +83,7 @@ describe('IRPC - Core', () => {
         const factory = createModule();
 
         expect(factory.namespace).toEqual({
-          name: 'irpc',
+          name: 'global',
           version: '1.0.0',
         });
 
